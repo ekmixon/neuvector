@@ -182,7 +182,7 @@ def db_add_tcp_stream_segments(builder, tcp_stream):
             # Note: delay creating the stream until we have a via chunk to
             # commit to it
             #
-            if streamID == None:
+            if streamID is None:
                 streamID = newStream(tcp_stream.five_tuple)
             builder.add_chunk(streamID, tcp_segment.tcp_payload)
             last_sequence_num =  tcp_segment.tcp_sequence_number
@@ -197,7 +197,7 @@ def db_add_udp_stream_segments(builder, udp_stream):
     streamID = None
     for udp_segment in udp_segments:
         if len(udp_segment.udp_payload) > 0:
-            if streamID == None:
+            if streamID is None:
                 streamID = newStream(udp_stream.five_tuple)
             builder.add_chunk(streamID, udp_segment.udp_payload)
 
@@ -287,7 +287,7 @@ def enchunk_pcap(pcapFN, sqliteFN):
     #
     builder.finish()
 
-if __name__ == '__main__' :
+if __name__ == '__main__':
 
     args = getopt.getopt(sys.argv[1:], 'i:o:')
     args = dict(args[0])
@@ -297,5 +297,5 @@ if __name__ == '__main__' :
         if not args.has_key(k) :
             usage(os.path.basename(sys.argv[0]))
 
-    fnArgs = tuple([ args[k] for k in requiredKeys ])
+    fnArgs = tuple(args[k] for k in requiredKeys)
     enchunk_pcap(*fnArgs)

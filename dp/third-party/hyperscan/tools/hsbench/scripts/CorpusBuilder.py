@@ -26,7 +26,7 @@ CREATE TABLE chunk (
 
     def __init__(self, outfile):
         if os.path.exists(outfile):
-            raise RuntimeError("Database '%s' already exists" % outfile)
+            raise RuntimeError(f"Database '{outfile}' already exists")
         self.outfile = outfile
         self.db = sqlite.connect(self.outfile)
         self.db.executescript(CorpusBuilder.SCHEMA)
