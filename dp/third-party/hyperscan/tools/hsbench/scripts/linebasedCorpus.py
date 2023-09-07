@@ -49,5 +49,5 @@ if __name__ == '__main__':
         if not args.has_key(k):
             usage(os.path.basename(sys.argv[0]))
 
-    fnArgs = tuple([args[k] for k in requiredKeys])
+    fnArgs = tuple(args[k] for k in requiredKeys)
     lineCorpus(*fnArgs)

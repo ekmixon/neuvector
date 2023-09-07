@@ -45,7 +45,7 @@ def session(data):
 @session.command()
 @click.pass_obj
 def list(data):
-    body = {"ctrl_list_session": dict()}
+    body = {"ctrl_list_session": {}}
     data.sock.sendall(json.dumps(body))
 
     while True:
@@ -57,7 +57,7 @@ def list(data):
 @session.command()
 @click.pass_obj
 def count(data):
-    body = {"ctrl_count_session": dict()}
+    body = {"ctrl_count_session": {}}
     data.sock.sendall(json.dumps(body))
 
     resp = json.loads(data.sock.recv(RECV_BUFFER_SIZE))
@@ -76,7 +76,7 @@ def debug(data):
 @click.pass_obj
 def enable(data, cat):
     """Enable debug category."""
-    body = {"ctrl_set_debug": {"categories": ["+%s" % cat]}}
+    body = {"ctrl_set_debug": {"categories": [f"+{cat}"]}}
     data.sock.sendall(json.dumps(body))
 
 @debug.command()
@@ -85,14 +85,14 @@ def enable(data, cat):
 @click.pass_obj
 def disable(data, cat):
     """Disable debug category."""
-    body = {"ctrl_set_debug": {"categories": ["-%s" % cat]}}
+    body = {"ctrl_set_debug": {"categories": [f"-{cat}"]}}
     data.sock.sendall(json.dumps(body))
 
 @debug.command()
 @click.pass_obj
 def show(data):
     """Show debug setting."""
-    body = {"ctrl_get_debug": dict()}
+    body = {"ctrl_get_debug": {}}
     data.sock.sendall(json.dumps(body))
 
     resp = json.loads(data.sock.recv(RECV_BUFFER_SIZE))
